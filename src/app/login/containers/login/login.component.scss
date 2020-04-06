@@ -1,0 +1,30 @@
+.login-container {
+  max-width: 400px; 
+  margin: 90px auto 0;
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+
+  form {
+    border-radius: .25rem;
+  }
+}
+
+.info-color {
+  background: #33b5e5;
+}
+
+.error {
+  color: tomato; 
+  font-size: 12px; 
+  padding-top: 4px
+}
+
+.sign-up-button {
+  padding-top: .7rem;
+  padding-bottom: .7rem;
+  color: #33b5e5 !important;
+  background-color: transparent !important;
+  border: 2px solid #33b5e5 !important;
+  border-radius: 10em;
+  outline: none;
+}
