@@ -1,0 +1,29 @@
+<div class="sidebar">
+  <div class="sidebar-brand">
+   <h1>SEP</h1>
+  </div>
+  <nav class="sidebar-nav" aria-label="sidebar navigation">
+    <div>
+      <ul class="dropdown-items">
+        <li routerLinkActive="active-link">
+          <a class="item-link" routerLink="/admin/users">
+            <span class="cd-nav-icon"></span>Usuarios</a>
+        </li>
+        <li routerLinkActive="active-link">
+          <a class="item-link" routerLink="/admin/others">
+            <span class="cd-nav-icon"></span>Otros</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div>
+    <p
+      (click)="handleLogout()"
+      class="item-link log-out-item">
+      Cerrar sesión
+    </p>
+  </div>
+</div>
+<div class="body">
+  <router-outlet></router-outlet>
+</div>
