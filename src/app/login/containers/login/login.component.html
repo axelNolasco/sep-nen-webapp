@@ -1,57 +1,57 @@
 <div class="login-container card">
-  <h5 class="card-header info-color white-text text-center py-4">Login</h5>
-  
+  <h5 class="card-header info-color white-text text-center py-4">Iniciar sesion</h5>
   <form
     [formGroup]="loginForm"
     (ngSubmit)="handleLogin()"
     class="text-center border border-light p-5">
-    <div *ngIf="showLoginError" class="login-error">
+    <div *ngIf="showLoginError" class="login-error mb-4">
       <p>
         <ngb-alert [type]="'danger'" [dismissible]="false">
-          <strong>Error!</strong> Email or password invalid
+          <strong>Error!</strong> Email o contraseña invalido
         </ngb-alert>
       </p>
     </div>
-    <input
-      type="email"
-      id="defaultLoginFormEmail"
-      class="form-control mb-4"
-      formControlName="username"
-      placeholder="E-mail">
-    <div
-      *ngIf="loginForm.controls.username.invalid && (loginForm.controls.username.dirty || loginForm.controls.username.touched)"
-      class="alert alert-danger">
-      <div *ngIf="loginForm.controls.username.errors.required">
-        Email is required
+    <div class="form-row">
+      <div class="form-group col-md-12 mb-4">
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          formControlName="username"
+          [ngClass]="{ 'is-invalid': (loginForm.controls.username.invalid && (loginForm.controls.username.dirty || loginForm.controls.username.touched)) }"
+          required>
+        <label class="form-control-placeholder" for="username">Email</label>
+        <div *ngIf="loginForm.controls.username.invalid && (loginForm.controls.username.dirty || loginForm.controls.username.touched)"
+          class="invalid-feedback">
+          Email es requerido
+        </div>
       </div>
-      <div *ngIf="loginForm.controls.username.errors.email">
-        Insert a valid email
-      </div>
-    </div>
-    <input
-      type="password"
-      id="defaultLoginFormPassword"
-      class="form-control mb-4"
-      formControlName="password"
-      placeholder="Password">
-      <div
-      *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)"
-      class="alert alert-danger">
-      <div *ngIf="loginForm.controls.password.errors.required">
-        Password is required
+      <div class="form-group col-md-12 mb-3">
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+          [ngClass]="{ 'is-invalid': (loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)) }"
+          required>
+        <label class="form-control-placeholder" for="password">Contraseña</label>
+        <div *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)"
+          class="invalid-feedback">
+          Contraseña es requerida
+        </div>
       </div>
     </div>
     <div class="d-flex justify-content-around">
       <div>
         <div class="form-check">
           <input formControlName="rememberMe" type="checkbox" class="form-check-input" id="remember-me">
-          <label class="form-check-label" for="remember-me">Remember me</label>
+          <label class="form-check-label" for="remember-me">Recuerdame</label>
         </div>
       </div>
       <div>
-        <a href="">Forgot password?</a>
+        <a href="">Olvidaste tu contraseña?</a>
       </div>
     </div>
-    <button color="info" block="true" class="my-4 sign-up-button btn-block" type="submit">Sign in</button>
+    <button color="info" block="true" class="my-4 sign-up-button btn-block" type="submit">Entrar</button>
   </form>
 </div>

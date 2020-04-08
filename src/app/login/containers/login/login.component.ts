@@ -3,16 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { UtilsService } from '../../../shared/utils/utils';
 import { LoginService } from '../../services/login/login.service';
-
-const mockAdminData = {
-  email: 'admin@sep.com',
-  password: 'password'
-};
-
-const mockUserData = {
-  email: 'user@sep.com',
-  password: 'password'
-};
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private loginService: LoginService
+    private router: Router,
+    private loginService: LoginService,
   ) {}
   
   ngOnInit(): void {
@@ -41,43 +33,53 @@ export class LoginComponent implements OnInit {
   }
 
   public handleLogin(): void {
-    const user = this.loginForm.controls.username.value;
-    const password = this.loginForm.controls.password.value;
-
     if (this.loginForm.invalid) {
       UtilsService.validateAllFormFields(this.loginForm);
       return;
     }
-    // if (user === mockAdminData.email && password === mockAdminData.password) {
-    //   this.handleLoginSucces('admin');
-    // } else if (user === mockUserData.email && password === mockUserData.password) {
-    //   this.handleLoginSucces('user');
-    // } else {
-    //   this.showLoginError = true;
-    // }
+
     this.loginService.login(this.loginForm.value)
     .subscribe(
       loginResponse => {
         console.log('Login respone', loginResponse);
+        this.loginService.loginSuccess(loginResponse);
+        this.handleLoginSucces();
       },
       err => {
-        console.log('Login erros', err);
+        console.log('Login error', err);
+        this.loginErrorHandler(err.code);
       }
     );
   }
 
-  handleLoginSucces(userType: string): void {
-    console.log("Login succes...");
+  private handleLoginSucces(): void {
+    console.log("Login succes...", this.loginService.getUserTokenData());
+    let userType = this.loginService.getUserTokenData().authorities[0].toLowerCase();
+
     this.showLoginError = false;
+
     switch(userType) {
-      case 'admin':
+      case 'role_third':
         console.log('Usuario de tipo ', userType);
+        this.router.navigate(['/admin/users']);
         break;
-        case 'user': 
+        case 'role_client': 
         console.log('Usuario de tipo ', userType);
+        this.router.navigate(['/user']);
         break;
-      default: 
+      default:
+        this.router.navigate(['/']);
         break;
+    }
+  }
+
+  private loginErrorHandler(code: number): void {
+    switch (code) {
+      case 400:
+        this.showLoginError = true;
+        break;
+      default:
+        this.showLoginError = true;
     }
   }
 }
